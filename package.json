@@ -5,10 +5,11 @@
   "description": "Trucker codebase",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "nodemon server.js"
   },
   "dependencies": {
-    "express": "~3.4.x"
+    "express": "~3.4.x",
+    "jade": "~1.6.0"
   },
   "engines": {
     "node": "0.10.x"
@@ -17,5 +18,8 @@
     "type": "git",
     "url": "https://github.com/edshadi/trucker"
   },
-  "author": "Ed Shadi"
+  "author": "Ed Shadi",
+  "devDependencies": {
+    "nodemon": "~1.2.1"
+  }
 }
