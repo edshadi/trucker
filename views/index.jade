@@ -2,16 +2,8 @@ doctype html
 html(lang="en")
   head
     title= 'Trucker'
-    link(rel='stylesheet', href='/css/global.css')
+    link(rel='stylesheet', href='build/trucker.min.css')
+    script(src= "/build/trucker.js", type='text/javascript')
   body
-    h1 Jade - node template engine
-    #container.col
-      if youAreUsingJade
-        p You are amazing
-      else
-        p Get on it!
-      p.
-        Jade is a terse and simple
-        templating language with a
-        strong focus on performance
-        and powerful features.
+    #nav
+      h1 Trucker
