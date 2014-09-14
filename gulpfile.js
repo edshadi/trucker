@@ -1,6 +1,5 @@
 var gulp = require('gulp');
 var gutil = require('gulp-util');
-var react = require('gulp-react');
 var uglify = require('gulp-uglify');
 var clean = require('gulp-clean');
 var browserify = require('gulp-browserify');
@@ -15,30 +14,16 @@ gulp.task('clean', function() {
 
 // Parse and compress JS and JSX files
 
-gulp.task('javascript', function() {
-  return gulp.src('assets/js/**/*.js')
-    .pipe(react())
+gulp.task('browserify', function() {
+  gulp.src('src/js/trucker.react.js')
+    .pipe(browserify({transform: 'reactify'}))
     .pipe(concat('trucker.js'))
-    // .pipe(uglify())
-    .pipe(gulp.dest('public/build/'));
+    .pipe(gulp.dest('public/build'));
 });
-
-// Browserify the source tree into a client-side library
-
-function browserifyTask() {
-  return gulp.src('public/build/trucker.js')
-    .pipe(browserify({
-      transform: ['envify']
-    }))
-    .pipe(gulp.dest('public/build/'))
-    .pipe(gulp.dest('public/build/'));
-}
-
-gulp.task('browserify', ['javascript'], browserifyTask);
 
 // Compile and minify css
 gulp.task('styles', function() {
-  return gulp.src('assets/**/*.css')
+  return gulp.src('src/**/*.css')
     .pipe(concat('trucker.css'))
     .pipe(minifycss())
     .pipe(rename({suffix: '.min'}))
@@ -53,8 +38,8 @@ gulp.task('watch', ['clean'], function() {
     // Protect against this function being called twice
     if (!watching) {
       watching = true;
-      gulp.watch('assets/**/*.js', ['javascript']);
-      gulp.watch('assets/**/*.css', ['styles']);
+      gulp.watch('src/**/*.js', ['browserify']);
+      gulp.watch('src/**/*.css', ['styles']);
       nodemon({
         script: 'server.js',
         watch: 'build'
